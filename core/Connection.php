@@ -5,10 +5,10 @@ class Connection{
     private function __construct($config){
         try {
 
-            $con = new mysqli($config['host'], $config['user'], '', $config['db'], $config['port']);
+            $con = new mysqli('localhost','root','','osrs_db');
 
             if ($con->connect_error) {
-                die("Could not connect to mysql: " . $this->con->connect_error);
+                die("Could not connect to mysql: " . $this->$con->connect_error);
             }
 
             self::$conn = $con;

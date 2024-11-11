@@ -1,46 +1,42 @@
-<?php include'db_connect.php' ?>
+
 <div class="col-lg-12">
 	<div class="card card-outline card-primary">
 		<div class="card-header">
 			<div class="card-tools">
-				<a class="btn btn-block btn-sm btn-default btn-flat border-primary " href="./index.php?page=new_student"><i class="fa fa-plus"></i> Add New</a>
+				<a class="btn btn-block btn-sm btn-default btn-flat border-primary new_class" href="javascript:void(0)"><i class="fa fa-plus"></i> Add New</a>
 			</div>
 		</div>
 		<div class="card-body">
 			<table class="table tabe-hover table-bordered" id="list">
 				<colgroup>
-					<col width="5%">
-					<col width="15%">
-					<col width="25%">
-					<col width="25%">
-					<col width="15%">
+					<col width="20%">
+					<col width="60%">
+					<col width="20%">
 				</colgroup>
 				<thead>
 					<tr>
 						<th class="text-center">#</th>
-						<th>Student ID</th>
-						<th>Name</th>
-						<th>Class</th>
+						<th>Level</th>
+						<th>Section</th>
 						<th>Action</th>
 					</tr>
 				</thead>
 				<tbody>
 					<?php
 					$i = 1;
-					$qry = $conn->query("SELECT s.*,concat(c.level,'-',c.section) as class,concat(firstname,' ',middlename,' ',lastname) as name FROM students s inner join classes c on c.id = s.class_id order by concat(firstname,' ',middlename,' ',lastname) asc  ");
+					$qry = $student_list;
 					while($row= $qry->fetch_assoc()):
 					?>
 					<tr>
-						<td class="text-center"><?php echo $i++ ?></td>
-						<td class=""><b><?php echo $row['student_code'] ?></b></td>
-						<td><b><?php echo ucwords($row['name']) ?></b></td>
-						<td><b><?php echo ucwords($row['class']) ?></b></td>
+						<th class="text-center"><?php echo $i++ ?></th>
+						<td><b><?php echo $row['firstname'] ?></b></td>
+						<td><b><?php echo $row['lastname'] ?></b></td>
 						<td class="text-center">
 		                    <div class="btn-group">
-		                        <a href="index.php?page=edit_student&id=<?php echo $row['id'] ?>" class="btn btn-primary btn-flat ">
+		                        <a href="javascript:void(0)" data-id='<?php echo $row['id'] ?>' class="btn btn-primary btn-flat manage_class">
 		                          <i class="fas fa-edit"></i>
 		                        </a>
-		                        <button type="button" class="btn btn-danger btn-flat delete_student" data-id="<?php echo $row['id'] ?>">
+		                        <button type="button" class="btn btn-danger btn-flat delete_class" data-id="<?php echo $row['id'] ?>">
 		                          <i class="fas fa-trash"></i>
 		                        </button>
 	                      </div>
@@ -52,25 +48,23 @@
 		</div>
 	</div>
 </div>
-<style>
-	table td{
-		vertical-align: middle !important;
-	}
-</style>
 <script>
 	$(document).ready(function(){
 		$('#list').dataTable()
-		$('.view_student').click(function(){
-			uni_modal("Student's Details","view_student.php?id="+$(this).attr('data-id'),"large")
+		$('.new_class').click(function(){
+			uni_modal("New class","manage_class.php")
 		})
-	$('.delete_student').click(function(){
-	_conf("Are you sure to delete this Student?","delete_student",[$(this).attr('data-id')])
+		$('.manage_class').click(function(){
+			uni_modal("Manage class","manage_class.php?id="+$(this).attr('data-id'))
+		})
+	$('.delete_class').click(function(){
+	_conf("Are you sure to delete this class?","delete_class",[$(this).attr('data-id')])
 	})
 	})
-	function delete_student($id){
+	function delete_class($id){
 		start_load()
 		$.ajax({
-			url:'ajax.php?action=delete_student',
+			url:'ajax.php?action=delete_class',
 			method:'POST',
 			data:{id:$id},
 			success:function(resp){

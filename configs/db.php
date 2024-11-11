@@ -25,6 +25,6 @@ $config['database'] = [
     'user' => 'root',
     'pass' => ' ',
     'db' => 'osrs_db',
-    'port' => '3308',
+    'port' => '3306',
 ];
 ?>

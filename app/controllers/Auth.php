@@ -1,10 +1,9 @@
 <?php 
 class Auth extends Controller {
 
-        public function __construct(){
-            $this->model_auth = $this->model('AuthModel');
-        }
-
+    public function __construct(){
+        $this->model_auth = $this->model('AuthModel');
+    }
     public function index() {
         $this->render('auth/login');
     }

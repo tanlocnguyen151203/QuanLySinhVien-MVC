@@ -23,7 +23,7 @@
 <?php $this->render('blocks/header') ?>
 <?php 
 if(isset($_SESSION['login_id']))
-header("location:index.php?page=home");
+header("location:auth");
 
 ?>
 

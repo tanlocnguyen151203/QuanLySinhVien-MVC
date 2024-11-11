@@ -23,7 +23,7 @@ class Database{
 
             $sql = "INSERT INTO $table($fieldStr) VALUES ($valueStr)";
 
-            $status = $thís->query($sql);
+            $status = $this->query($sql);
 
             if($status){
                 return true;
@@ -68,8 +68,8 @@ class Database{
        return $statement;
     }
 
-    function lastInsertId(){
-        return $this->__conn->lastInsertId();
-    }
+    // function lastInsertId(){
+    //     return $this->__conn->lastInsertId();
+    // }
 }
 ?>

@@ -8,11 +8,18 @@ if(!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS']=='on'){
     $web_root = 'http://'.$_SERVER['HTTP_HOST'];
 }
 
-$folder = str_replace(strtolower($_SERVER['DOCUMENT_ROOT']), '', strtolower(_DIR_ROOT));
+// $folder = str_replace(strtolower($_SERVER['DOCUMENT_ROOT']), '', strtolower(__DIR__));
 
-$folder = ltrim($folder,'');
+// Xóa chuỗi `/xampp/htdocs` khỏi đường dẫn nếu có
+$folder = str_replace($_SERVER['DOCUMENT_ROOT'], '', __DIR__);
 
-$web_root = $web_root.$folder;
+// Xóa dấu / ở đầu (nếu có)
+$folder = ltrim($folder, '/');
+$folder = str_replace("e://xampp//htdocs//", '', $folder);
+
+
+// Tạo URL đầy đủ
+$web_root = "http://localhost/dtmvc/";
 
 define('_WEB_ROOT', $web_root);
 
